@@ -37,3 +37,38 @@ void ListaSentencias(void)
         }
     }
 }
+
+void Sentencia(void)
+{
+    TOKEN tok = ProximoToken();
+    REG_EXPRESION izq, der;
+    switch ( tok )
+    {
+        case ID :
+            /* <sentencia>-> ID := <expresion> #asignar ; */
+            Identificador(&izq);
+            Match(ASIGNACION);
+            Expresion(&der);
+            Asignar(izq, der);
+            Match(PUNTOYCOMA);
+            break;
+        case LEER :
+            /* <sentencia> -> LEER ( <listaIdentificadores> ) */
+            Match(LEER);
+            Match(PARENIZQUIERDO);
+            ListaIdentificadores();
+            Match(PARENDERECHO);
+            Match(PUNTOYCOMA);
+            break;
+        case ESCRIBIR :
+            /* <sentencia> -> ESCRIBIR ( <listaExpresiones> ) */
+            Match(ESCRIBIR);
+            Match(PARENIZQUIERDO);
+            ListaExpresiones();
+            Match(PARENDERECHO);
+            Match(PUNTOYCOMA);
+            break;
+        default :
+            return;
+    }
+}
