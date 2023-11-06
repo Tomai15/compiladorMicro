@@ -72,3 +72,95 @@ void Sentencia(void)
             return;
     }
 }
+
+void ListaIdentificadores(void)
+{
+    /* <listaIdentificadores> -> <identificador> #leer_id {COMA <identificador> #leer_id} */
+    TOKEN t;
+    REG_EXPRESION reg;
+    Identificador(&reg);
+    Leer(reg);
+    for ( t = ProximoToken(); t == COMA; t = ProximoToken() )
+    {
+        Match(COMA);
+        Identificador(&reg);
+        Leer(reg);
+    }
+
+}
+
+void Identificador(REG_EXPRESION * resultado)
+{
+    /* <identificador> -> ID #procesar_id */
+    Match(ID);
+    *resultado = ProcesarId();
+}
+
+void ListaExpresiones(void)
+{
+    /* <listaExpresiones> -> <expresion> #escribir_exp {COMA <expresion> #escribir_exp} */
+    TOKEN t;
+    REG_EXPRESION reg;
+    Expresion(&reg);
+    Escribir(reg);
+    for ( t = ProximoToken(); t == COMA; t = ProximoToken() )
+    {
+        Match(COMA);
+        Expresion(&reg);
+        Escribir(reg);
+    }
+}
+
+void Expresion(REG_EXPRESION * resultado)
+{
+    /* <expresion> -> <primaria> { <operadorAditivo> <primaria> #gen_infijo } */
+    REG_EXPRESION operandoIzq, operandoDer;
+    char op[TamanioNombreLexema];
+    TOKEN t;
+    Primaria(&operandoIzq);
+    for ( t = ProximoToken(); t == SUMA || t == RESTA; t = ProximoToken() )
+    {
+        OperadorAditivo(op);
+        Primaria(&operandoDer);
+        operandoIzq = GenInfijo(operandoIzq, op, operandoDer);
+    }
+    *resultado = operandoIzq;
+}
+
+void Primaria(REG_EXPRESION * resultado)
+{
+    TOKEN tok = ProximoToken();
+    switch ( tok )
+    {
+        case ID :
+            /* <primaria> -> <identificador> */
+            Identificador(resultado);
+            break;
+        case CONSTANTE :
+            /* <primaria> -> CONSTANTE #procesar_cte */
+            Match(CONSTANTE);
+            *resultado = ProcesarCte();
+            break;
+        case PARENIZQUIERDO :
+            /* <primaria> -> PARENIZQUIERDO <expresion> PARENDERECHO */
+            Match(PARENIZQUIERDO);
+            Expresion(resultado);
+            Match(PARENDERECHO);
+            break;
+        default :
+            return;
+    }
+}
+
+void OperadorAditivo(char * resultado)
+{
+    /* <operadorAditivo> -> SUMA #procesar_op | RESTA #procesar_op */
+    TOKEN t = ProximoToken();
+    if ( t == SUMA || t == RESTA )
+    {
+        Match(t);
+        strcpy(resultado, ProcesarOp());
+    }
+    else
+        ErrorSintactico();
+}
