@@ -1,8 +1,4 @@
-#include <ctype.h>
-#include <stdio.h>
-#include <string.h>
-
-#include <scanner.c>
+#include "headers/superH.h"
 
 extern int flagToken;
 extern TOKEN tokenActual;

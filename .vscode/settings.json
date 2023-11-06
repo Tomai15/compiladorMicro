@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "*.cpp": "cpp",
+        "*.pl": "prolog",
+        "string.h": "c",
+        "parser.h": "c",
+        "funcionesutiles.h": "c",
+        "compilador.h": "c",
+        "superh.h": "c",
+        "rsemanticas.h": "c"
+    }
+}

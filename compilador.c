@@ -2,28 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include "headers/superH.h"
 
-typedef enum 
-{ 
-    INICIO, 
-    FIN, 
-    LEER, 
-    ESCRIBIR, 
-    ID, 
-    CONSTANTE, 
-    PARENIZQUIERDO,   
-    PARENDERECHO, 
-    PUNTOYCOMA, 
-    COMA, 
-    ASIGNACION,
-    SUMA, 
-    RESTA, 
-    FDT,
-    ERRORLEXICO 
-} TOKEN; 
 
-extern FILE *archivo;
-extern char buffer[];
 
 
 int main(int argc, char** argv)

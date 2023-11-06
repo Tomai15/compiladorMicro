@@ -1,14 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
+#include "headers/superH.h"
 
-#include <compilador.c>
 
 TOKEN scanner()
 {
-int tabla[15][13] = { 
-                        {  1,  3,  5,  6,  7,  8,  9, 10, 11, 14, 13,  0, 14 },
+    int tabla[15][13] = { 
+                         {  1,  3,  5,  6,  7,  8,  9, 10, 11, 14, 13,  0, 14 },
  				        {  1,  1,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2 },
  				        { 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14 },
 				        {  4,  3,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4 },
@@ -24,42 +20,42 @@ int tabla[15][13] = {
 				        { 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14 },
 				        { 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14 } 
                     };
-int caracter;
-int columna ;
-int estado = 0;
-int i = 0;
-do
-{
-    caracter = fgetc(archivo);
-    columna = fColumna(caracter);
-    estado = tabla[estado][columna];
-    if ( columna != 11 )
+    int caracter;
+    int columna ;
+    int estado = 0;
+    int i = 0;
+    do
     {
-        buffer[i] = caracter;
-        i++;
-    } 
-} while ( !estadoFinal(estado) && !(estado == 14) );
+        caracter = fgetc(archivo);
+        columna = fColumna(caracter);
+        estado = tabla[estado][columna];
+        if ( columna != 11 )
+        {
+           buffer[i] = caracter;
+            i++;
+        } 
+    } while ( !estadoFinal(estado) && !(estado == 14) );
 
-buffer[i] = '\0';
-switch ( estado )
-{
-    case 2 : 
-    if ( columna != 11 )
+    buffer[i] = '\0';
+    switch ( estado )
     {
-	    ungetc(caracter, archivo);
-	    buffer[i-1] = '\0';
-    }
-   	return ID;
+     case 2 : 
+     if ( columna != 11 )
+        {
+	      ungetc(caracter, archivo);
+	     buffer[i-1] = '\0';
+        }
+    	return ID;
     
-    case 4 : 
-    if ( columna != 11 )
-    {
+     case 4 : 
+     if ( columna != 11 )
+     {
 	    ungetc(caracter, archivo);
 	    buffer[i-1] = '\0';
-	}
-    return CONSTANTE;
+	    }
+     return CONSTANTE;
   
-    case 5 : return SUMA;
+       case 5 : return SUMA;
     case 6 : return RESTA;
     case 7 : return PARENIZQUIERDO;
     case 8 : return PARENDERECHO;

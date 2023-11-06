@@ -1,9 +1,5 @@
-#include <ctype.h>
-#include <stdio.h>
-#include <string.h>
+#include "headers/superH.h"
 
-#include "headers/rSemanticas.h"
-#include "headers/fAuxs.h"
 
 extern char buffer[];
 
@@ -51,9 +47,9 @@ REG_EXPRESION GenInfijo(REG_EXPRESION e1, char * op, REG_EXPRESION e2)
 /* Genera la instruccion para una operacion infija y construye un registro semantico con el resultado */
     REG_EXPRESION reg;
     static unsigned int numTemp = 1;
-    char cadTemp[TamanioNombreLexema] ="Temp&";
-    char cadNum[TamanioNombreLexema];
-    char cadOp[TamanioNombreLexema];
+    char cadTemp[32+1] ="Temp&";
+    char cadNum[32+1];
+    char cadOp[32+1];
     if ( op[0] == '-' ) strcpy(cadOp, "Restar");
     if ( op[0] == '+' ) strcpy(cadOp, "Sumar");
     sprintf(cadNum, "%d", numTemp);

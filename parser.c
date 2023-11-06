@@ -1,8 +1,5 @@
-#include <ctype.h>
-#include <stdio.h>
-#include <string.h>
+#include "headers/superH.h"
 
-#include <scanner.c>
 
 /* -------------- PROCEDIMIENTOS DE ANALISIS SINTACTICO (PAS) -------------- */
 void Objetivo(void)
@@ -115,7 +112,7 @@ void Expresion(REG_EXPRESION * resultado)
 {
     /* <expresion> -> <primaria> { <operadorAditivo> <primaria> #gen_infijo } */
     REG_EXPRESION operandoIzq, operandoDer;
-    char op[TamanioNombreLexema];
+    char op[32+1];
     TOKEN t;
     Primaria(&operandoIzq);
     for ( t = ProximoToken(); t == SUMA || t == RESTA; t = ProximoToken() )
