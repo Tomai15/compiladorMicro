@@ -1,5 +1,8 @@
-#include "headers/superH.h"
-
+#include "headers/rSemanticas.h"
+#include "headers/funcionesUtiles.h"
+#include <ctype.h>
+#include <stdio.h>
+#include <string.h>
 
 extern char buffer[];
 
@@ -18,7 +21,7 @@ REG_EXPRESION ProcesarId(void)
 {
     /* Declara ID y construye el correspondiente registro semantico */
     REG_EXPRESION reg;
-    Chequear(buffer);
+    ChequearEnLaTablaDeSimbolos(buffer);
     reg.clase = ID;
     strcpy(reg.nombre, buffer);
     return reg;
@@ -55,9 +58,9 @@ REG_EXPRESION GenInfijo(REG_EXPRESION e1, char * op, REG_EXPRESION e2)
     sprintf(cadNum, "%d", numTemp);
     numTemp++;
     strcat(cadTemp, cadNum);
-    if ( e1.clase == ID) Chequear(Extraer(&e1));
-    if ( e2.clase == ID) Chequear(Extraer(&e2));
-    Chequear(cadTemp);
+    if ( e1.clase == ID) ChequearEnLaTablaDeSimbolos(Extraer(&e1));
+    if ( e2.clase == ID) ChequearEnLaTablaDeSimbolos(Extraer(&e2));
+    ChequearEnLaTablaDeSimbolos(cadTemp);
     Generar(cadOp, Extraer(&e1), Extraer(&e2), cadTemp);
     strcpy(reg.nombre, cadTemp);
     return reg;

@@ -1,5 +1,10 @@
-#include "headers/superH.h"
+#include <ctype.h>
+#include <stdio.h>
+#include <string.h>
 
+#include "headers/parser.h"
+#include "headers/rSemanticas.h"
+#include "headers/funcionesUtiles.h"
 
 /* -------------- PROCEDIMIENTOS DE ANALISIS SINTACTICO (PAS) -------------- */
 void Objetivo(void)
@@ -7,13 +12,13 @@ void Objetivo(void)
     /* <objetivo> -> <programa> FDT #terminar */
     Programa();
     Match(FDT);
-    printf("compilacion terminada /n");
+    Terminar();
 }
 
 void Programa(void)
 {
     /* <programa> -> #comenzar INICIO <listaSentencias> FIN */
-    printf("Inicio de proceso de compilacion /n");
+    Comenzar();
     Match(INICIO);
     ListaSentencias();
     Match(FIN);

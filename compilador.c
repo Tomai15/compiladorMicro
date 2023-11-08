@@ -2,9 +2,16 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "headers/superH.h"
 
+#include "headers/compilador.h"
+#include "headers/parser.h"
 
+FILE *archivo;
+FILE *out;
+char buffer[32+1];
+RegTS TS[1000] = { {"inicio", INICIO}, {"fin", FIN}, {"leer", LEER}, {"escribir", ESCRIBIR}, {"$", 99} };
+TOKEN tokenActual;
+int flagToken = 0;
 
 
 int main(int argc, char** argv)
@@ -14,7 +21,7 @@ int main(int argc, char** argv)
         printf("Debe ingresar el nombre del archivo fuente (en lenguaje Micro) en la linea de comandos\n");
         return -1;
     }
-    if ( argc != 2 )
+    if ( argc == 2 )
     {
         printf("Numero incorrecto de argumentos\n");
         printf("Ingreso %d argumentos\n",argc);
@@ -35,7 +42,11 @@ int main(int argc, char** argv)
         printf("No se pudo abrir archivo fuente\n");
         return -1;
     }
-    
+    if ( (out = fopen(argv[2], "w") ) == NULL)
+	    {
+	        printf("No se pudo abrir archivo de salida\n");
+	        return -1;
+	    }
     // Inicia el proceso de compilacion:
 
     Objetivo();
@@ -43,4 +54,5 @@ int main(int argc, char** argv)
     // Cierro el archivo
 
     fclose(archivo);
+    fclose(out);
 }

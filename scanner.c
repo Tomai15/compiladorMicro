@@ -1,6 +1,11 @@
-#include "headers/superH.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
-
+#include "headers/scanner.h"
+extern FILE * archivo;
+extern char buffer[];
 TOKEN scanner()
 {
     int tabla[15][13] = { 

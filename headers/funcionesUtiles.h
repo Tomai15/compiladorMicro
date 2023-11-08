@@ -1,15 +1,4 @@
-#include <ctype.h>
-#include <stdio.h>
-#include <string.h>
-
 #include "compilador.h"
-
-extern int flagToken;
-extern TOKEN tokenActual;
-extern char buffer[];
-extern TOKEN tokenActual;
-extern int flagToken;
-
 void Match(TOKEN t);
 TOKEN ProximoToken();
 void ErrorLexico();

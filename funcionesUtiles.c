@@ -1,7 +1,12 @@
-#include "headers/superH.h"
+#include <ctype.h>
+#include <stdio.h>
+#include <string.h>
 
-extern int flagToken;
-extern TOKEN tokenActual;
+#include "headers/funcionesUtiles.h"
+#include "headers/scanner.h"
+
+extern FILE *out;
+extern RegTS TS[];
 extern char buffer[];
 extern TOKEN tokenActual;
 extern int flagToken;
@@ -22,7 +27,7 @@ TOKEN ProximoToken()
             printf("Ocurrio un error lexico /n");
         }
         flagToken = 1;
-        if ( tokenActual == ID ) Buscar(buffer, &tokenActual);
+        if ( tokenActual == ID ) BuscarEnLaTS(buffer, &tokenActual);
     }
     return tokenActual;
 }
@@ -88,9 +93,9 @@ void ChequearEnLaTablaDeSimbolos(char * s)
 {
     /* Si la cadena No esta en la Tabla de Simbolos la agrega,y si es el nombre de una variable genera la instruccion */
     TOKEN t;
-    if ( !Buscar(s, &t) )
+    if ( !BuscarEnLaTS(s, &t) )
     {
-        Colocar(s);
+        ColocarEnTS(s);
         Generar("Declara", s, "Entera", "");
     }
 }
@@ -98,14 +103,14 @@ void ChequearEnLaTablaDeSimbolos(char * s)
 void Comenzar(void)
 {
     /* Inicializaciones Semanticas */
-    printf("\033[30mInicio de la compilacion\033[37m\n");
+    printf("Inicio de la compilacion\n");
     fprintf(out,"Inicio de  la compilacion\n");
 }
 
 void Terminar(void)
 {
     /* Genera la instruccion para terminar la ejecucion del programa */
-    printf("\033[30mFinalizacion de la compilacion\033[37m\n");
+    printf("Finalizacion de la compilacion\n");
     fprintf(out,"Finalizacion de la compilacion\n");
 }
 

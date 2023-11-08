@@ -34,3 +34,6 @@ refresh:
 #CLEAN Instruccion para eliminar todo
 clean:
 	-rm $(EJECUTABLE)
+#RUN Instruccion para ejecutar el programa con el archivo micro designado
+run:
+	./ccompilador programaMicro.m archSalida
