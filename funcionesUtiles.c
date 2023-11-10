@@ -24,7 +24,7 @@ TOKEN ProximoToken()
         tokenActual = scanner();
         if ( tokenActual == ERRORLEXICO )
         {
-            printf("Ocurrio un error lexico /n");
+            ErrorLexico();
         }
         flagToken = 1;
         if ( tokenActual == ID ) BuscarEnLaTS(buffer, &tokenActual);
