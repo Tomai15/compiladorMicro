@@ -1,6 +1,9 @@
 Inicio de  la compilacion
-Error Lexico
-Error Sintactico
-Error Sintactico
-Error Sintactico
+Declara a,Entera,
+Almacena 23,a,
+Write a,Entera,
+Declara b,Entera,
+Declara Temp&1,Entera,
+Sumar b,2,Temp&1
+Write Temp&1,Entera,
 Finalizacion de la compilacion
