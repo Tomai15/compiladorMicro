@@ -1,9 +1,7 @@
 Inicio de  la compilacion
 Declara a,Entera,
 Almacena 23,a,
-Write a,Entera,
-Declara b,Entera,
-Declara Temp&1,Entera,
-Sumar b,2,Temp&1
-Write Temp&1,Entera,
+Error Lexico
+Error Sintactico
+Error Sintactico
 Finalizacion de la compilacion

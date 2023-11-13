@@ -76,7 +76,7 @@ void yyerror(char *s) {
     fprintf(stderr, "%s\n", s);
 }
 
-////// MAIN //////
+
 int main(int argc, char** argv) {
     
     // Argumentos
@@ -85,11 +85,11 @@ int main(int argc, char** argv) {
         return EXIT_FAILURE;
     }
     else if (argc == 2) {
-        char filename[50];                  // Nombre del archivo
-        sprintf(filename, "%s", argv[1]);   // El 2do argumento
-        int largo = strlen(filename);       // Largo del nombre del archivo
+        char filename[50];                  
+        sprintf(filename, "%s", argv[1]);   
+        int largo = strlen(filename);       
 
-        // Si no termina en .m dar error
+        
         if (argv[1][largo-1] != 'm' || argv[1][largo-2] != '.'){
             printf("Extension incorrecta (debe ser .m)");
             return EXIT_FAILURE;
@@ -100,9 +100,9 @@ int main(int argc, char** argv) {
     else
         yyin = stdin;
 
-    inicializar_TS(); // Inicializa la tabla con todo en -1
+    inicializar_TS(); 
 
-    // Parser
+  
     switch (yyparse()){
         case 0: printf("\n\nProceso de compilacion termino exitosamente");
         break;
